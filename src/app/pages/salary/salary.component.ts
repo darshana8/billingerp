@@ -56,9 +56,15 @@ getAllSalary(){
   })
 }
 
-onDelete(id:number){
-
-}
+// onDelete(id:number){
+//   this.http.get("https://onlinetestapi.gerasim.in/api/TeamSync/DeleteSalaryById?salaryid="+id).subscribe((res:any)=>{
+//     if(res.result){
+//       this.getAllSalary();
+      
+//     }
+//     alert(res.message)
+//   })
+// }
 
 onSave(){
 this.http.post("https://onlinetestapi.gerasim.in/api/TeamSync/AddSalary",this.salaryObj).subscribe((res:any)=>{
