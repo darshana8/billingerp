@@ -1,0 +1,159 @@
+<div class="sidebar">
+    <div class="logo-details">
+        <i class='bx bxl-deezer'></i>
+      <span class="logo_name">Billing ERP</span>
+    </div>
+      <ul class="nav-links">
+        <li>
+          <a  routerLink="/dashboard" >
+            <i class='bx bx-menu sidebarBtn'></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLink="/employee">
+                <i class='bx bx-user-circle'></i>
+            <span class="links_name">Employee</span>
+          </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLink="/attendance">
+            <i class='bx bx-list-ul' ></i>
+            <span class="links_name">Attendance</span>
+          </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLink="/advance">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="links_name">Advance</span>
+          </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLink="/leaves">
+            <i class='bx bx-coin-stack' ></i>
+            <span class="links_name">Leaves</span>
+          </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLink="/salary">
+            <i class='bx bx-book-alt' ></i>
+            <span class="links_name">Salary</span>
+          </a>
+        </li>
+        <li class="log_out">
+          <a href="#">
+            <i class='bx bx-menu-alt-left'></i>
+            <span class="links_name">Log out</span>
+          </a>
+        </li>
+      </ul>
+  </div>
+
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Salary Portal</span>
+      </div>
+    </nav>
+
+<div class="row home-content">
+    <div class="col-8 box">
+        <div class="card-header bg-primary">
+            <div class="row">
+                <div class="col-6 text-white p-3 ">
+                    Salary Details
+                </div>
+                <div class="col-6 text-right">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Name</th>
+                        <th>Contact No</th>
+                        <th>Salary Date</th>
+                        <th>Present Days</th>
+                        <th>Salary Amount</th>
+                        <th>Total Advance</th>
+                        <th>Action</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr *ngFor="let item of salaryArray; let sr =index">
+                        <td>{{sr+1}}</td>
+                        <td>{{item.empName}}</td>
+                        <td>{{item.empContactNo}}</td>
+                        <td>{{item.salaryDate | date:'dd-MMM-yyyy'}}</td>
+                        <td>{{item.presentDays}}</td>
+                        <td>{{item.salaryAmount |currency:"₹ "}}</td>
+                        <td>{{item.totalAdvance}}</td>
+                        <td>
+                            <!-- <button class="btn btn-success btn-sm" (click)="onEdit(item.attendanceId)">Edit</button> -->
+                            <button class="btn btn-danger btn-sm mx-2 editbtn" (click)="onDelete(item.attendanceId)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>           
+            </table>
+        </div>
+    </div>
+
+    <div class="col-4 box">
+        <div class="card-header bg-primary">
+            <div class="row">
+                <div class="col-6 text-white p-3 ">
+                    New Salary
+                </div>
+                <div class="col-6 text-right">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">Select Employee</label>
+                        <select (change)="getEmpData()" name="employeeId" class="form-control form-control-lg" [(ngModel)]="salaryObj.employeeId">
+                            <option *ngFor="let emp of employeeArray" [value]="emp.empId">{{emp.empName}}</option>
+                        </select>
+                        
+                    </div>
+                    <div class="col-6">
+                        <label for="">Salary Date</label>
+                        <input type="date" class="form-control form-control-lg" name="salaryDate" [(ngModel)]="salaryObj.salaryDate">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Total Advance</label>
+                        <input type="number" class="form-control form-control-lg" name="totalAdvance" [(ngModel)]="salaryObj.totalAdvance">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Present Days</label>
+                        <input type="number" class="form-control form-control-lg" name="presentDays" [(ngModel)]="salaryObj.presentDays">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Salary Amount</label>
+                        <input type="number" class="form-control form-control-lg" (focus)="calculateSalary()" name="salaryAmount" [(ngModel)]="salaryObj.salaryAmount">
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-6 text-center">
+                        <button class="btn btn-secondary btn-sm savebtn">Reset</button>
+                    </div>
+
+                    <div class="col-6 text-center">
+                        <button class="btn btn-success btn-sm savebtn" *ngIf="salaryObj.salaryId == 0" (click)="onSave()">Save Employee</button>
+                        <!-- <button class="btn btn-warning btn-sm" *ngIf="salaryObj.attendanceId !== 0" (click)="onUpdate()">Update Employee</button> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</section>
+
